@@ -2,25 +2,23 @@ import cv2
 import os
 from ultralytics import YOLO
 
-# ============== CONFIGURATION ==============
-# CHANGE THIS PATH to your img1 folder
+# CHANGING THE PATH to the img1 folder
 frames_path = r"C:\Users\Ayyan Aftab\Downloads\MOT17\MOT17\train\MOT17-04-FRCNN\img1"
-output_video = "mot17_04_detected.mp4"  # Output video with detections
-model_path = "yolov8m.pt"               # YOLOv8m model (downloads automatically if not present)
+output_video = "mot17_04_detected. mp4"  # Output video with detections
+model_path = "yolov8m.pt"               # YOLOv8m model 
 confidence_threshold = 0.5              # Detection confidence threshold
-# ===========================================
 
-# Load YOLOv8 model
+# Loading YOLOv8 model
 print("Loading YOLOv8 model...") 
 model = YOLO(model_path)
 
-# Get list of frame files
-frame_files = sorted([f for f in os.listdir(frames_path) if f.endswith(".jpg")])
+# Receiving list of frame files
+frame_files = sorted([f for f in os.listdir(frames_path) if f.endswith(". jpg")])
 total_frames = len(frame_files)
 
 # Read first frame to get size
 first_frame = cv2.imread(os.path.join(frames_path, frame_files[0]))
-height, width, _ = first_frame.shape
+height, width, _ = first_frame. shape
 
 # MOT17 fps (check seqinfo.ini, usually 30)
 fps = 14
@@ -32,18 +30,18 @@ video = cv2.VideoWriter(output_video, fourcc, fps, (width, height))
 print(f"Processing {total_frames} frames...")
 print(f"Frame size: {width}x{height} @ {fps}fps")
 
-# Process each frame
+# Processing each frame
 for i, frame_name in enumerate(frame_files):
-    frame_path = os.path.join(frames_path, frame_name)
+    frame_path = os. path.join(frames_path, frame_name)
     frame = cv2.imread(frame_path)
     
-    # Run YOLOv8 detection on the frame
+    # Running YOLOv8 detection on the frame
     results = model(frame, conf=confidence_threshold, verbose=False)
     
-    # Get annotated frame with bounding boxes drawn
+    # Receiving annotated frame with bounding boxes drawn
     annotated_frame = results[0].plot()
     
-    # Write the annotated frame to video
+    # Writing the annotated frame to video
     video.write(annotated_frame)
     
     # Print progress every 50 frames
