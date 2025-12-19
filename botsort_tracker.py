@@ -9,10 +9,10 @@ class BoTSORTTracker:
             reid_weights=Path('osnet_x0_25_msmt17.pt'),
             device='cpu',
             half=False,
-            track_high_thresh=0.5,
-            track_low_thresh=0.1,
-            new_track_thresh=0.6,
-            match_thresh=0.8,
+            track_high_thresh=0.3, # detections with confidence ≥ track_high_thresh are used in the first matching stage.
+            track_low_thresh=0.05, # detections with confidence ≥ track_low_thresh (but < 0.3) are used in the second matching stage.
+            new_track_thresh=0.4, # A detection must have confidence ≥ 0.4 to start a brand new track.
+            match_thresh=0.7, # threshold for appearance feature matching.
             frame_rate=14
         )
 
