@@ -5,7 +5,7 @@ from botsort_tracker import BoTSORTTracker
 
 # CHANGING THE PATH to the img1 folder
 frames_path = r"C:\Users\Ayyan Aftab\Downloads\MOT17\MOT17\train\MOT17-04-FRCNN\img1"
-output_video = "mot17_04_detected.mp4"  # Output video with detections
+output_video = "mot17_04_detected.mp4"  # Outputs video with detections
 model_path = "yolov8m.pt"               # YOLOv8m model 
 confidence_threshold = 0.5              # Detection confidence threshold
 
