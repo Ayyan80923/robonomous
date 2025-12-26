@@ -1,0 +1,15 @@
+name: mot_env
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - ultralytics==8.3.233
+    - boxmot
+    - opencv-python==4.12.0.88
+    - numpy==2.2.6
+    - torch
+    - torchvision
