@@ -11,11 +11,11 @@ tracker:
   half: false
   track_high_thresh: 0.25
   track_low_thresh: 0.05
-  new_track_thresh: 0.75
+  new_track_thresh: 0.6
   match_thresh: 0.8
   proximity_thresh: 0.5
   appearance_thresh: 0.25
-  track_buffer: 100
+  track_buffer: 300
   frame_rate: 30
 
 # Video Settings
