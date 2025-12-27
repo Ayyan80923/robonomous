@@ -1,23 +1,27 @@
 from boxmot import BotSort
 import numpy as np
 from pathlib import Path
+from config_loader import load_config
 
 class BoTSORTTracker:
-    def __init__(self, device='0'):
-        # Initialize BoT-SORT tracker with stronger ReID model
+    def __init__(self, device='0', config_path='config.yaml'):
+        # Load configuration
+        config = load_config(config_path)
+        tracker_config = config['tracker']
+        
+        # Initialize BoT-SORT tracker with config values
         self.tracker = BotSort(
-            # Use a stronger ReID model for better occlusion handling
-            reid_weights=Path('clip_market1501.pt'),  # or 'osnet_x1_0_msmt17.pt'
+            reid_weights=Path(tracker_config['reid_weights']),
             device=device,  
-            half=False,
-            track_high_thresh=0.25,    # Lowered to catch more detections initially
-            track_low_thresh=0.05,     # Keep low for second-stage matching
-            new_track_thresh=0.75,      # Raised to prevent spurious new tracks
-            match_thresh=0.8,          # Raised for stricter appearance matching
-            proximity_thresh=0.5,      # IoU threshold for spatial proximity
-            appearance_thresh=0.25,    # Appearance similarity threshold
-            track_buffer=100,           # Increased buffer to remember lost tracks longer
-            frame_rate=30             # Higher frame rate for smoother tracking
+            half=tracker_config['half'],
+            track_high_thresh=tracker_config['track_high_thresh'],
+            track_low_thresh=tracker_config['track_low_thresh'],
+            new_track_thresh=tracker_config['new_track_thresh'],
+            match_thresh=tracker_config['match_thresh'],
+            proximity_thresh=tracker_config['proximity_thresh'],
+            appearance_thresh=tracker_config['appearance_thresh'],
+            track_buffer=tracker_config['track_buffer'],
+            frame_rate=tracker_config['frame_rate']
         )
 
     def update(self, detections, frame):
